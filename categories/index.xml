@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on My New Hugo Site</title>
-    <link>http://example.org/categories/</link>
+    <link>https://jerry871002.github.io/categories/</link>
     <description>Recent content in Categories on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -10,33 +10,33 @@
     <webMaster>youremail@domain.com (Jerry)</webMaster>
     <lastBuildDate>Mon, 02 Jun 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jerry871002.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Development</title>
-      <link>http://example.org/categories/development/</link>
+      <link>https://jerry871002.github.io/categories/development/</link>
       <pubDate>Mon, 02 Jun 2014 00:00:00 +0000</pubDate>
       <author>youremail@domain.com (Jerry)</author>
-      <guid>http://example.org/categories/development/</guid>
+      <guid>https://jerry871002.github.io/categories/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang</title>
-      <link>http://example.org/categories/golang/</link>
+      <link>https://jerry871002.github.io/categories/golang/</link>
       <pubDate>Mon, 02 Jun 2014 00:00:00 +0000</pubDate>
       <author>youremail@domain.com (Jerry)</author>
-      <guid>http://example.org/categories/golang/</guid>
+      <guid>https://jerry871002.github.io/categories/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>food</title>
-      <link>http://example.org/categories/food/</link>
+      <link>https://jerry871002.github.io/categories/food/</link>
       <pubDate>Sat, 28 Sep 2013 00:00:00 +0000</pubDate>
       <author>youremail@domain.com (Jerry)</author>
-      <guid>http://example.org/categories/food/</guid>
+      <guid>https://jerry871002.github.io/categories/food/</guid>
       <description></description>
     </item>
     
