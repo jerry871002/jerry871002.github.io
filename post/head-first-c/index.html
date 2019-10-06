@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-tw" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Head First C - My New Hugo Site</title>
+  <meta name="description" content="深入淺出C 前幾章一些值得注意的小細節  &amp;&amp;表示「並且假如成功的話，就進行⋯⋯」
+$ gcc zork.c -o zork &amp;&amp; ./zork break不能用來中斷if陳述式
+誤用break去中斷if的後果可以看這裡（The 1990 AT&amp;T Long Distance Network Collapse）
+ 串接指定
+x = 4運算式本身也具有回傳值4
+y = x = 4;把x和y都設定成4
+ 陣列變數當作指標使用
+doses[3] == *(doses &#43; 3) == *(3 &#43; doses) == 3[doses]
+ 字串實字（String literals）永遠不能被更新
+ 指向字串實字的變數不能用來改變該字串的內容
+char *cards = &#34;JQK&#34;; cards[2] = cards[1]; //不合法！！ 如果從字串實字重新建立一個陣列，就「能夠」修改該陣列
+char cards[] = &#34;JQK&#34;; cards[2] = cards[1]; //合法！！  記憶體存儲器（位址由高至低）
+   名稱 用途     Stack（堆疊） 區域變數（local variables）   Heap（堆積） 動態記憶體（dynamic memory）   Globals（全域區段） 全域變數（global variables）   Constants（常數區段） 唯讀   Code（程式碼區段） 唯讀    指標構成的陣列">
+  <meta name="author" content="Jerry"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "My New Hugo Site",
+    
+    "url": "https:\/\/jerry871002.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jerry871002.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jerry871002.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jerry871002.github.io\/post\/head-first-c\/",
+          "name": "Head first c"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jerry"
+  },
+  "headline": "Head First C",
+  "description" : "深入淺出C 前幾章一些值得注意的小細節  \x26amp;\x26amp;表示「並且假如成功的話，就進行⋯⋯」\n$ gcc zork.c -o zork \x26amp;\x26amp; .\/zork break不能用來中斷if陳述式\n誤用break去中斷if的後果可以看這裡（The 1990 AT\x26amp;T Long Distance Network Collapse）\n 串接指定\nx = 4運算式本身也具有回傳值4\ny = x = 4;把x和y都設定成4\n 陣列變數當作指標使用\ndoses[3] == *(doses \x2b 3) == *(3 \x2b doses) == 3[doses]\n 字串實字（String literals）永遠不能被更新\n 指向字串實字的變數不能用來改變該字串的內容\nchar *cards = \x26#34;JQK\x26#34;; cards[2] = cards[1]; \/\/不合法！！ 如果從字串實字重新建立一個陣列，就「能夠」修改該陣列\nchar cards[] = \x26#34;JQK\x26#34;; cards[2] = cards[1]; \/\/合法！！  記憶體存儲器（位址由高至低）\n   名稱 用途     Stack（堆疊） 區域變數（local variables）   Heap（堆積） 動態記憶體（dynamic memory）   Globals（全域區段） 全域變數（global variables）   Constants（常數區段） 唯讀   Code（程式碼區段） 唯讀    指標構成的陣列",
+  "inLanguage" : "zh-tw",
+  "wordCount":  888 ,
+  "datePublished" : "2019-10-06T14:19:49",
+  "dateModified" : "2019-10-06T14:19:49",
+  "image" : "https:\/\/jerry871002.github.io\/img\/avatar-icon.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/jerry871002.github.io\/post\/head-first-c\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jerry871002.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/jerry871002.github.io\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Head First C" />
+<meta property="og:description" content="深入淺出C 前幾章一些值得注意的小細節  &amp;&amp;表示「並且假如成功的話，就進行⋯⋯」
+$ gcc zork.c -o zork &amp;&amp; ./zork break不能用來中斷if陳述式
+誤用break去中斷if的後果可以看這裡（The 1990 AT&amp;T Long Distance Network Collapse）
+ 串接指定
+x = 4運算式本身也具有回傳值4
+y = x = 4;把x和y都設定成4
+ 陣列變數當作指標使用
+doses[3] == *(doses &#43; 3) == *(3 &#43; doses) == 3[doses]
+ 字串實字（String literals）永遠不能被更新
+ 指向字串實字的變數不能用來改變該字串的內容
+char *cards = &#34;JQK&#34;; cards[2] = cards[1]; //不合法！！ 如果從字串實字重新建立一個陣列，就「能夠」修改該陣列
+char cards[] = &#34;JQK&#34;; cards[2] = cards[1]; //合法！！  記憶體存儲器（位址由高至低）
+   名稱 用途     Stack（堆疊） 區域變數（local variables）   Heap（堆積） 動態記憶體（dynamic memory）   Globals（全域區段） 全域變數（global variables）   Constants（常數區段） 唯讀   Code（程式碼區段） 唯讀    指標構成的陣列">
+<meta property="og:image" content="https://jerry871002.github.io/img/avatar-icon.png" />
+<meta property="og:url" content="https://jerry871002.github.io/post/head-first-c/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="My New Hugo Site" />
+
+  <meta name="twitter:title" content="Head First C" />
+  <meta name="twitter:description" content="深入淺出C 前幾章一些值得注意的小細節  &amp;&amp;表示「並且假如成功的話，就進行⋯⋯」
+$ gcc zork.c -o zork &amp;&amp; ./zork break不能用來中斷if陳述式
+誤用break去中斷if的後果可以看這裡（The 1990 AT&amp;T Long Distance Network Collapse）
+ 串接指定
+x = 4運算式本身也具有回傳值4 …">
+  <meta name="twitter:image" content="https://jerry871002.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://jerry871002.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.58.3" />
+  <link rel="alternate" href="https://jerry871002.github.io/index.xml" type="application/rss+xml" title="My New Hugo Site"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jerry871002.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://jerry871002.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://jerry871002.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">開關導覽</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jerry871002.github.io/">My New Hugo Site</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent">Samples</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/2017-03-07-bigimg-sample">Big Image Sample</a>
+                
+                  <a href="/post/2017-03-05-math-sample">Math Sample</a>
+                
+                  <a href="/post/2016-03-08-code-sample">Code Sample</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Test Link" href="/post/my-first-post/">Test Link</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="My New Hugo Site" href="https://jerry871002.github.io/">
+            <img class="avatar-img" src="https://jerry871002.github.io/img/avatar-icon.png" alt="My New Hugo Site" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Head First C</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;發表於 October 6, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;分鐘
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jerry
+    
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+
+<div class="container" role="main">
+  <div class="row">
+
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      
+      <article role="main" class="blog-post">
+        
+
+<h1 id="深入淺出c">深入淺出C</h1>
+
+<p><img src="https://im2.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/056/40/0010564017.jpg&amp;v=50893552&amp;w=348&amp;h=348" alt="Head First C" /></p>
+
+<h2 id="前幾章一些值得注意的小細節">前幾章一些值得注意的小細節</h2>
+
+<ul>
+<li><p><code>&amp;&amp;</code>表示「並且假如成功的話，就進行⋯⋯」</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcc zork.c -o zork <span style="color:#f92672">&amp;&amp;</span> ./zork</code></pre></div></li>
+
+<li><p><code>break</code><strong>不能</strong>用來中斷<code>if</code>陳述式<br />
+誤用<code>break</code>去中斷<code>if</code>的後果可以看<a href="http://users.csc.calpoly.edu/~jdalbey/SWE/Papers/att_collapse.html">這裡</a>（The 1990 AT&amp;T Long Distance Network Collapse）</p></li>
+
+<li><p>串接指定<br />
+<code>x = 4</code>運算式本身也具有回傳值<code>4</code><br />
+<code>y = x = 4;</code>把<code>x</code>和<code>y</code>都設定成<code>4</code></p></li>
+
+<li><p>陣列變數當作指標使用<br />
+<code>doses[3] == *(doses + 3) == *(3 + doses) == 3[doses]</code></p></li>
+
+<li><p>字串實字（String literals）<strong>永遠不能</strong>被更新</p>
+
+<ul>
+<li><p>指向字串實字的變數<strong>不能</strong>用來改變該字串的內容</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">char</span> <span style="color:#f92672">*</span><span style="color:#111">cards</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;JQK&#34;</span><span style="color:#111">;</span>
+<span style="color:#111">cards</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">cards</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">];</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">不合法！！</span></code></pre></div></li>
+
+<li><p>如果從字串實字重新建立一個陣列，就<strong>「能夠」</strong>修改該陣列</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">char</span> <span style="color:#111">cards</span><span style="color:#111">[]</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;JQK&#34;</span><span style="color:#111">;</span>
+<span style="color:#111">cards</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">cards</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">];</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">合法！！</span></code></pre></div></li>
+</ul></li>
+
+<li><p>記憶體存儲器（位址由高至低）</p>
+
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>用途</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Stack（堆疊）</td>
+<td>區域變數（local variables）</td>
+</tr>
+
+<tr>
+<td>Heap（堆積）</td>
+<td>動態記憶體（dynamic memory）</td>
+</tr>
+
+<tr>
+<td>Globals（全域區段）</td>
+<td>全域變數（global variables）</td>
+</tr>
+
+<tr>
+<td>Constants（常數區段）</td>
+<td>唯讀</td>
+</tr>
+
+<tr>
+<td>Code（程式碼區段）</td>
+<td>唯讀</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>指標構成的陣列</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">char</span><span style="color:#f92672">*</span> <span style="color:#111">name_for_dog</span><span style="color:#111">[]</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span><span style="color:#d88200">&#34;Bowser&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Bonza&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;Snodgrass&#34;</span><span style="color:#111">};</span></code></pre></div>
+<p>每個<strong>字串實字</strong>都會有一個<strong>指標</strong>指向他</p></li>
+
+<li><p><code>|</code> 符號（管線）是將一個行程之標準輸出連結到另一個行程之標準輸入的符號</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#f92672">(</span>./bermuda <span style="color:#111">|</span> ./geo2json<span style="color:#f92672">)</span> &lt; spooky.csv &gt; output.json</code></pre></div></li>
+
+<li><p>命令列選項（command-line option）<br />
+內容待補（P.149）</p></li>
+
+<li><p><code>struct</code>指標表示法（<code>t</code>是指向<code>struct</code>的指標）<br />
+<code>(*t).age</code>、<code>t-&gt;age</code><br />
+這兩個表達式表達同一件事</p></li>
+
+<li><p><code>strdup()</code> 函式能夠在 <strong><em>heap</em></strong> 某處重新產生該字串的完整副本</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">char</span> <span style="color:#f92672">*</span><span style="color:#111">copy</span> <span style="color:#f92672">=</span> <span style="color:#111">strdup</span><span style="color:#111">(</span><span style="color:#111">s</span><span style="color:#111">);</span></code></pre></div>
+<p><code>strdup()</code>在<code>string.h</code>中，函式計算該字串多長，然後呼叫<code>malloc()</code>函式，在 <strong><em>heap</em></strong> 上配置正確數量的字元</p></li>
+</ul>
+
+<h2 id="第七章-函式進階">第七章、函式進階</h2>
+
+<ul>
+<li><p>指向函式的指標<br />
+用法是 <code>回傳類型(*指標變數)(參數型別)</code><br />
+像這樣 <code>char** (*names_fn)(char*, int)</code></p>
+
+<p>舉個小小的例子</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">int</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">wrap_fn</span><span style="color:#111">)(</span><span style="color:#00a8c8">int</span><span style="color:#111">);</span>
+<span style="color:#111">wrap_fn</span> <span style="color:#f92672">=</span> <span style="color:#111">go_to_wrap_speed</span><span style="color:#111">;</span> <span style="color:#75715e">//儲存go_to_wrap_speed()函式的位址
+</span><span style="color:#75715e"></span><span style="color:#111">wrap_fn</span><span style="color:#111">(</span><span style="color:#ae81ff">4</span><span style="color:#111">);</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">這就跟呼叫</span><span style="color:#111">go_to_wrap_speed</span><span style="color:#111">(</span><span style="color:#ae81ff">4</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">函式一樣</span></code></pre></div></li>
+
+<li><p>排序函式（sort function）與比較器函式（comparator function）<br />
+在<code>stdlib.h</code>裡面有一個<code>qsort()</code>函式，看起來長這樣</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">qsort</span><span style="color:#111">(</span><span style="color:#00a8c8">void</span> <span style="color:#111">array</span><span style="color:#111">,</span> <span style="color:#75715e">//指向陣列的指標
+</span><span style="color:#75715e"></span>      <span style="color:#111">size_t</span> <span style="color:#111">length</span><span style="color:#111">,</span> <span style="color:#75715e">//該陣列的長度
+</span><span style="color:#75715e"></span>      <span style="color:#111">size_t</span> <span style="color:#111">item_size</span><span style="color:#111">,</span> <span style="color:#75715e">//陣列裡每個元素的尺寸
+</span><span style="color:#75715e"></span>      <span style="color:#00a8c8">int</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">compar</span><span style="color:#111">)(</span><span style="color:#00a8c8">const</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">*</span><span style="color:#111">,</span> <span style="color:#00a8c8">const</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">*</span><span style="color:#111">));</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">指向比較陣列裡頭兩個項目的函式</span></code></pre></div>
+<p>示範的程式放在資料夾 qsort_with_comparator 裡面</p></li>
+
+<li><p>函式指標陣列<br />
+用法是<code>回傳類型(*指標變數[])(參數型別)</code></p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">void</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">replies</span><span style="color:#111">[])(</span><span style="color:#111">response</span><span style="color:#111">)</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span><span style="color:#111">dump</span><span style="color:#111">,</span> <span style="color:#111">second_chance</span><span style="color:#111">,</span> <span style="color:#111">marriage</span><span style="color:#111">};</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">陣列裡面存放指向函式的指標</span></code></pre></div>
+<p>範例程式在 [mail_merge]() 裡面</p></li>
+
+<li><p>可變參數函式（Variadic function）<br />
+直接來個範例：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdarg.h&gt; //處理可變參數函式的程式碼都在這</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#00a8c8">void</span> <span style="color:#75af00">print_ints</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">args</span><span style="color:#111">,</span> <span style="color:#111">...)</span> <span style="color:#111">{</span> <span style="color:#75715e">//「...」被稱作「省略」（ellipsis），告訴你後面還有東西
+</span><span style="color:#75715e"></span>    <span style="color:#111">va_list</span> <span style="color:#111">ap</span><span style="color:#111">;</span> <span style="color:#75715e">//va_list 用來儲存要傳進你的函式的額外引數
+</span><span style="color:#75715e"></span>    <span style="color:#111">va_start</span><span style="color:#111">(</span><span style="color:#111">ap</span><span style="color:#111">,</span> <span style="color:#111">args</span><span style="color:#111">);</span> <span style="color:#75715e">//va_start 指名可變動引數從哪裡開始
+</span><span style="color:#75715e"></span>    <span style="color:#00a8c8">for</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#111">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#111">args</span><span style="color:#111">;</span> <span style="color:#111">i</span><span style="color:#f92672">++</span><span style="color:#111">)</span>
+        <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;argument: %d</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#111">va_arg</span><span style="color:#111">(</span><span style="color:#111">ap</span><span style="color:#111">,</span> <span style="color:#00a8c8">int</span><span style="color:#111">));</span> <span style="color:#75715e">//va_arg 接受兩個值：va_list 和下一個引數的「型別」
+</span><span style="color:#75715e"></span>    <span style="color:#111">va_end</span><span style="color:#111">(</span><span style="color:#111">ap</span><span style="color:#111">);</span> <span style="color:#75715e">//讀完之後記得要結束
+</span><span style="color:#75715e"></span><span style="color:#111">}</span>
+
+<span style="color:#75715e">//call the function
+</span><span style="color:#75715e"></span><span style="color:#111">print_ints</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">79</span><span style="color:#111">,</span> <span style="color:#ae81ff">101</span><span style="color:#111">,</span> <span style="color:#ae81ff">32</span><span style="color:#111">);</span>
+<span style="color:#111">print_ints</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span></code></pre></div>
+<ul>
+<li><p>小提示</p>
+
+<ol>
+<li><code>va_end</code>、<code>va_start</code> 等東西實際上是<strong>巨集</strong>，不是函式<br /></li>
+<li>至少要有<strong>一個</strong>固定參數<br /></li>
+<li>如果嘗試讀取比傳進來的還要多的引數，會發生隨機錯誤（random error）</li>
+</ol></li>
+</ul></li>
+</ul>
+
+<h2 id="第八章-動態與靜態程式庫">第八章、動態與靜態程式庫</h2>
+
+<ul>
+<li><p>使用<code>-I</code>選項來告訴編譯器去哪找標頭檔</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcc -I/my_header_files test_code.c ... -o test_code</code></pre></div>
+<p>這樣就可以直接用 <code>#include&lt;some_header.h&gt;</code> 了（尖括號）</p></li>
+
+<li><p>收藏檔五四三</p>
+
+<ul>
+<li>收藏檔包含<code>.o</code>目的檔<br /></li>
+
+<li><p>用<code>nm</code>指令檢視收藏檔的內容</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ nm libl.a</code></pre></div></li>
+
+<li><p>使用<code>ar</code>命令建立收藏檔</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ar -rcs libhfsecutity.a encrypt.o checksum.o</code></pre></div>
+<ol>
+<li><code>r</code>表示如果<code>.a</code>檔已經存在則更新</li>
+<li><code>c</code>表示建立收藏檔而沒有回饋訊息</li>
+<li><code>s</code>叫<code>ar</code>指令在<code>.a</code>檔案開頭處建立索引（index）</li>
+<li>收藏檔總是該命名為<code>lib&lt;something&gt;.a</code></li>
+</ol></li>
+
+<li><p>編譯</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcc test_code.c -lhfsecutity -o test_code</code></pre></div>
+<p><code>hfsecutity</code>叫編譯器尋找名為<code>libhfsecutity.a</code>的收藏檔<br />
+如果收藏檔放在其他地方，用<code>-L</code>選項指名要搜尋哪些目錄</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcc test_code.c -L/my_lib -lhfsecutity -o test_code</code></pre></div>
+<p><code>-L</code>旗標應該出現在<code>gcc</code>指令裡頭的原始碼檔案之後</p></li>
+</ul></li>
+
+<li><p>動態程式庫<br />
+動態程式庫在<strong>執行時期</strong>（runtime）才被連結到程式</p>
+
+<ul>
+<li><p>在不同的作業系統上有不同的名稱</p>
+
+<ol>
+<li><code>hfcal.dll</code>（Windows 上的 MinGW）</li>
+<li><code>libhfcal.dll.a</code>（Windows 上的 Cygwin）</li>
+<li><code>libhfcal.so</code>（Linux 或 Unix）</li>
+<li><code>libhfcal.dylib</code>（Mac）<br /></li>
+</ol>
+
+<p>備註：Linux 或 Unix 上的<code>so</code>代表<strong>共用目的檔</strong>（shared object file），Mac 上的<code>dylib</code>代表<strong>動態程式庫</strong>（dynamic library）</p></li>
+
+<li><p>用<code>-shared</code>旗標建立動態程式庫</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcc -shared hfcal.o -o /libs/libhfcal.dylib</code></pre></div></li>
+</ul>
+
+<p>靜態與動態程式庫的範例分別在 [static-library]() 跟 [dynamic-library]() 裡面</p></li>
+</ul>
+
+<h2 id="第九章-行程與系統呼叫">第九章、行程與系統呼叫</h2>
+
+<ul>
+<li><p><code>system()</code>函式<br />
+<code>system()</code>函式接受單一參數並執行，就像直接在命令列上輸入一樣，簡單又方便</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">system</span><span style="color:#111">(</span><span style="color:#d88200">&#34;ls -l&#34;</span><span style="color:#111">);</span></code></pre></div>
+<p>但是<code>system()</code>函式並不安全，有可能被<strong>住入</strong>（inject）程式碼片段，範例在 [unsafe_system_call]() 裡面<br />
+這個範例還有其他可能遇到的問題，詳情請洽第 403 頁</p></li>
+
+<li><p><code>exec()</code>函式
+<code>exec()</code>函式透過執行某個程式來<strong>替換當前的行程</strong><br />
+行程就是<strong>在記憶體裡執行的程式</strong>，作業系統用<strong>行程識別符</strong>（process identifier，PID）來追蹤每個行程</p>
+
+<p><code>exec()</code>函式有很多不同版本，主要分成兩群，串列（list）函式跟陣列（array）函式</p>
+
+<ul>
+<li>串列（list）函式，接受參數串列的命令列引數：<br />
+
+<ul>
+<li>execl()<br /></li>
+<li>execlp()：根據路徑（PATH）搜尋程式<br /></li>
+<li>execle()：使用環境陣列的字串</li>
+</ul></li>
+<li>陣列（array）函式，如果命令列引數已經先存在串列裡面的話：<br />
+
+<ul>
+<li>execv()<br /></li>
+<li>execvp()：根據路徑（PATH）搜尋程式<br /></li>
+<li>execve()：使用環境陣列的字串<br /></li>
+</ul></li>
+</ul>
+
+<p>看出規則了吧～～</p>
+
+<p>範例在這，假如有一個檔案<code>dinner_info.c</code>，內容如下：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#00a8c8">int</span> <span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">argc</span><span style="color:#111">,</span> <span style="color:#00a8c8">char</span> <span style="color:#f92672">*</span><span style="color:#111">argv</span><span style="color:#111">[])</span> <span style="color:#111">{</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Dinners: %s</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#111">argv</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">]);</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Juice: %s</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#111">getenv</span><span style="color:#111">(</span><span style="color:#d88200">&#34;JUICE&#34;</span><span style="color:#111">));</span> <span style="color:#75715e">//stdlib.h 裡的 getenv() 讓你讀取環境變數
+</span><span style="color:#75715e"></span>    <span style="color:#00a8c8">return</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span>
+<span style="color:#111">}</span></code></pre></div>
+<p>然後你執行：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//陣列的最後一個項目必須是 NULL
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">char</span> <span style="color:#f92672">*</span><span style="color:#111">my_env</span><span style="color:#111">[]</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span><span style="color:#d88200">&#34;JUICE=peach and apple&#34;</span><span style="color:#111">,</span> <span style="color:#111">NULL</span><span style="color:#111">};</span>
+
+<span style="color:#75715e">//這裡需要 NULL 告訴函式沒有其他引數了
+</span><span style="color:#75715e"></span><span style="color:#111">execle</span><span style="color:#111">(</span><span style="color:#d88200">&#34;dinner_info&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;dinner_info&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;4&#34;</span><span style="color:#111">,</span> <span style="color:#111">NULL</span><span style="color:#111">,</span> <span style="color:#111">my_env</span><span style="color:#111">);</span></code></pre></div>
+<p>結果會長這樣：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Dinners: 4
+Juice: peach and apple</pre></div></li>
+
+<li><p>系統呼叫的錯誤處理<br />
+檢查錯誤的方法有很多：
+  </p>
+
+<ol>
+<li>如果<code>exec()</code>呼叫成功，當前程式便會<strong>停止執行</strong>，因此，假如程式在呼叫<code>exec()</code>之後還在執行任何工作，那一定是有問題</li>
+<li>也可以檢查<code>exec()</code>函式是否回傳<code>-1</code></li>
+
+<li><p>但這邊要介紹的是<code>errno</code>變數</p>
+
+<p><code>errno</code>變數是儲存在<code>errno.h</code>裡的<strong>全域變數</strong>，有一連串標準錯誤值：</p>
+
+<ul>
+<li><code>EPERM=1</code> Operation not permitted</li>
+<li><code>ENOENT=2</code> No such file or directory</li>
+<li><code>ESRCH=3</code> No such process<br /></li>
+<li>還有另外一百多種錯誤，詳情可參見<a href="https://zh.wikipedia.org/wiki/Errno.h">維基百科</a></li>
+</ul>
+
+<p>因為<code>errno</code>變數實際上只是數字，可以使用<code>string.h</code>裡的<code>strerror()</code>函式查詢標準錯誤訊息（就是那個數字代表的含意）：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">puts</span><span style="color:#111">(</span><span style="color:#111">strerror</span><span style="color:#111">(</span><span style="color:#111">errno</span><span style="color:#111">));</span>  <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">將錯誤數字轉換為錯誤訊息</span></code></pre></div></li>
+</ol>
+
+<p>相關的範例放在 [exec_error_handle]() 裡面</p></li>
+
+<li><p><code>fork()</code>函式<br />
+<code>fork()</code>函式會複製你的行程，為當前行程產生完整<strong>副本</strong><br />
+原先的行程被稱作<strong>父行程</strong>，新建立的副本叫做<strong>子行程</strong></p>
+
+<p>呼叫<code>fork()</code>的方法：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">pid_t</span> <span style="color:#111">pid</span> <span style="color:#f92672">=</span> <span style="color:#111">fork</span><span style="color:#111">();</span></code></pre></div>
+<p><code>pid_t</code>的型態取決於作業系統，有些使用<code>short</code>，有些可能使用<code>int</code><br />
+<code>fork()</code>回傳<code>0</code>的整數值給子行程，回傳<strong>正的整數值</strong>給父行程，父行程會收到子行程的行程識別符（PID）</p>
+
+<p>範例（在 [rssgossip]() 裡的 [newshound.c]()）：用<code>exec()</code>呼叫 Python 程式讀取 RSS 檔案</p></li>
+
+<li><p>小整理</p>
+
+<ol>
+<li><code>system()</code>像控制台命令那樣執行字串</li>
+<li><code>fork()</code>複製當前行程</li>
+<li><code>fork()</code>+<code>exec()</code>建立子行程</li>
+</ol></li>
+</ul>
+
+<h2 id="第十章-行程間通訊-interprocess-communication">第十章、行程間通訊（Interprocess communication）</h2>
+
+<ul>
+<li><p>檔案描述子是代表<strong>資料串流</strong>的數字<br />
+表格的前三個槽位（slot）總是相同</p>
+
+<ul>
+<li>槽位 0 是標準輸入</li>
+<li>槽位 1 是標準輸出</li>
+<li>槽位 2 是標準錯誤</li>
+</ul></li>
+
+<li><p>使用<code>&gt;</code>及<code>2&gt;</code>重導向標準輸出和標準錯誤</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./myprog &gt; output.txt <span style="color:#ae81ff">2</span>&gt; errors.log</code></pre></div>
+<p><code>2</code>代表描述子表格裡的<strong>標準錯誤</strong>數字</p></li>
+
+<li><p>也可以把標準錯誤重導向到與標準輸出相同的地方</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./myprog <span style="color:#ae81ff">2</span>&gt; <span style="color:#111">&amp;</span><span style="color:#ae81ff">1</span></code></pre></div>
+<p><code>2&gt;</code>表示「重導向標準錯誤」
+<code>&amp;1</code>表示「到標準輸出去」</p></li>
+
+<li><p><code>fileno()</code>告訴你描述子<br />
+假如你讀了一個檔案</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">FILE</span> <span style="color:#f92672">*</span><span style="color:#111">my_file</span> <span style="color:#f92672">=</span> <span style="color:#111">fopen</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Gguitar.mp3&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;r&#34;</span><span style="color:#111">);</span></code></pre></div>
+<p><strong>描述子表格</strong>（description table）變這樣</p>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>資料串流</th>
+<th>在幹嘛</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>0</td>
+<td>鍵盤</td>
+<td>標準輸入</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>螢幕</td>
+<td>標準輸出</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>螢幕</td>
+<td>標準錯誤</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>資料庫連接</td>
+<td>其他串流</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>guitar.mp3 檔案</td>
+<td>我們讀進來的檔案在這</td>
+</tr>
+</tbody>
+</table>
+
+<p>最後</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"> <span style="color:#00a8c8">int</span> <span style="color:#111">descriptor</span> <span style="color:#f92672">=</span> <span style="color:#111">fileno</span><span style="color:#111">(</span><span style="color:#111">my_file</span><span style="color:#111">);</span>  <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">這會回傳</span> <span style="color:#ae81ff">4</span></code></pre></div></li>
+
+<li><p><code>dup2()</code>複製資料串流</p></li>
+
+<li><p><code>waitpid()</code> 函式<br />
+在<code>sys/wait.h</code>標頭檔裡<br />
+有三個參數，像這樣用：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">waitpid</span><span style="color:#111">(</span><span style="color:#111">pid</span><span style="color:#111">,</span> <span style="color:#111">pid_status</span><span style="color:#111">,</span> <span style="color:#111">options</span><span style="color:#111">);</span></code></pre></div>
+<ol>
+<li><code>pid</code>：就行程識別符</li>
+<li><code>pid_status</code>：指向整數的指標（因為需要更新它），儲存行程的<strong>結束資訊</strong>（exit information）</li>
+<li><code>options</code>：沒事的話設定 0 就好，代表等到該行程結束，欲知詳情，可用 <code>man waitpid</code>查詢</li>
+</ol>
+
+<p>以上三個函式的範例在 [rssgossip]() 裡的 [newshound2.c]()（改編前面的程式來的！）</p></li>
+
+<li><p>用 <code>pipe()</code> 連接行程<br />
+先來看看怎麼用</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">int</span> <span style="color:#111">fd</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">];</span> <span style="color:#75715e">//The descriptors will be stored in this array.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//You pass the name of the array to the pipe() function
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">pipe</span><span style="color:#111">(</span><span style="color:#111">fd</span><span style="color:#111">)</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#111">error</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Can&#39;t create the pipe&#34;</span><span style="color:#111">);</span>
+<span style="color:#111">}</span></code></pre></div>
+<p>其中，<code>fd[1]</code>是資料的入口（寫入管線），<code>fd[0]</code>是資料的出口（可以從管線讀取）<br />
+注意一點是一個管線只能<strong>單向</strong>傳送資料串流，所以如果是子行程要傳送資料給父行程<br />
+在子行程中：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">close</span><span style="color:#111">(</span><span style="color:#111">fd</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]);</span> <span style="color:#75715e">//The child won’t read from the pipe, this will close the read end of the pipe.
+</span><span style="color:#75715e"></span><span style="color:#111">dup2</span><span style="color:#111">(</span><span style="color:#111">fd</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">],</span> <span style="color:#ae81ff">1</span><span style="color:#111">);</span> <span style="color:#f92672">//</span><span style="color:#111">The</span> <span style="color:#111">child</span> <span style="color:#111">then</span> <span style="color:#111">connects</span> <span style="color:#111">the</span> <span style="color:#111">write</span> <span style="color:#111">end</span> <span style="color:#111">to</span> <span style="color:#111">the</span> <span style="color:#111">Standard</span> <span style="color:#111">Output</span></code></pre></div>
+<p>在父行程中：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">dup2</span><span style="color:#111">(</span><span style="color:#111">fd</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">],</span> <span style="color:#ae81ff">0</span><span style="color:#111">);</span> <span style="color:#75715e">//The parent connects the read end to the Standard Output.
+</span><span style="color:#75715e"></span><span style="color:#111">close</span><span style="color:#111">(</span><span style="color:#111">fd</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">]);</span> <span style="color:#f92672">//</span><span style="color:#111">This</span> <span style="color:#111">will</span> <span style="color:#111">close</span> <span style="color:#111">the</span> <span style="color:#111">write</span> <span style="color:#111">end</span> <span style="color:#111">of</span> <span style="color:#111">the</span> <span style="color:#111">pipe</span><span style="color:#111">.</span></code></pre></div>
+<p>詳細的範例在 [rssgossip]() 裡的 [new_opener.c]()（也是改編前面的程式來的）</p></li>
+
+<li><p>信號（signal）<br />
+平常在終端機執行程式時，使用者鍵入<code>Ctrl-C</code>，程式便終止，實際上發生的流程如下：</p>
+
+<ol>
+<li>鍵入 Ctrl-C</li>
+<li>作業系統傳送中斷信號</li>
+<li>行程執行它的<strong>預設中斷處理器</strong>（interrupt handler），呼叫<code>exit()</code></li>
+</ol>
+
+<p>每一種信號都有對應的信號處理器（signal handler），記錄在信號表格（signal table）中，信號處理器的內容可以用自己寫的程式碼取代</p>
+
+<ul>
+<li><p><code>sigaction</code><br />
+<code>sigaction</code>是包含指向函式之指標的<code>struct</code>，用來告訴作業系統，當某個信號被送給行程時，他應該呼叫哪個函式<br />
+以下說明如何建立<code>sigaction</code></p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">struct</span> <span style="color:#111">sigaction</span> <span style="color:#111">action</span><span style="color:#111">;</span> <span style="color:#75715e">//建立新動作
+</span><span style="color:#75715e"></span><span style="color:#111">action</span><span style="color:#111">.</span><span style="color:#111">sa_handler</span> <span style="color:#f92672">=</span> <span style="color:#111">diediedie</span><span style="color:#111">;</span> <span style="color:#75715e">//想要電腦呼叫的函式名稱，sigaction 包裹的函式稱作處理器
+</span><span style="color:#75715e"></span><span style="color:#111">sigemptyset</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#111">sction</span><span style="color:#111">.</span><span style="color:#111">sa_mask</span><span style="color:#111">);</span> <span style="color:#75715e">//mask（遮罩）是過濾 sigaction 將處理之信號的機制，通常用空的就好
+</span><span style="color:#75715e"></span><span style="color:#111">action</span><span style="color:#111">.</span><span style="color:#111">sa_flags</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">額外的旗標，平常沒事用</span> <span style="color:#ae81ff">0</span> <span style="color:#960050;background-color:#1e0010">就好</span></code></pre></div>
+<p>因為所有信號都只是整數值，自訂處理器函式（custom handler function）必須接受<code>int</code>引數</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">void</span> <span style="color:#75af00">diediedie</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">sig</span><span style="color:#111">)</span> <span style="color:#75715e">//sig 是處理器已經捕捉到的信號數字
+</span><span style="color:#75715e"></span><span style="color:#111">{</span>
+    <span style="color:#111">puts</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Goodbye cruel world...</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">);</span>
+    <span style="color:#111">exit</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+<span style="color:#111">}</span></code></pre></div>
+<ul>
+<li><p><code>sigaction</code>以<code>sigaction()</code>註冊<br />
+用<code>sigaction()</code>函式來告訴作業系統我們剛剛建立的<code>sigaction</code><br />
+<code>sigaction()</code>接受三個參數：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">sigaction</span><span style="color:#111">(</span><span style="color:#111">signal_no</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#111">new_action</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#111">old_action</span><span style="color:#111">);</span></code></pre></div>
+<ol>
+<li>信號數字：你想要處理的信號整數值</li>
+<li>新動作：你想要註冊的<code>sigaction</code>的位址</li>
+<li>舊動作：沒事的話用<code>NULL</code>就好
+如果發生失敗，<code>sigaction()</code>會回傳 -1，並且設定<code>errno</code>變數</li>
+</ol>
+
+<p>把它變得更容易使用一點，寫一個函式把這個過程包起來：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">int</span> <span style="color:#75af00">catch_signal</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">sig</span><span style="color:#111">,</span> <span style="color:#00a8c8">void</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">handler</span><span style="color:#111">)(</span><span style="color:#00a8c8">int</span><span style="color:#111">))</span> <span style="color:#75715e">//信號數字跟指向處理器函式的指標
+</span><span style="color:#75715e"></span><span style="color:#111">{</span>
+    <span style="color:#00a8c8">struct</span> <span style="color:#111">sigaction</span> <span style="color:#111">action</span><span style="color:#111">;</span> <span style="color:#75715e">//建立 aciton
+</span><span style="color:#75715e"></span>    <span style="color:#111">action</span><span style="color:#111">.</span><span style="color:#111">sa_handler</span> <span style="color:#f92672">=</span> <span style="color:#111">handler</span><span style="color:#111">;</span> <span style="color:#75715e">//將該 action 的處理器函式設定成傳進來的處理器函式
+</span><span style="color:#75715e"></span>    <span style="color:#111">sigemptyset</span><span style="color:#111">(</span><span style="color:#f92672">&amp;</span><span style="color:#111">sction</span><span style="color:#111">.</span><span style="color:#111">sa_mask</span><span style="color:#111">);</span> <span style="color:#75715e">//使用空的 mask
+</span><span style="color:#75715e"></span>    <span style="color:#111">action</span><span style="color:#111">.</span><span style="color:#111">sa_flags</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#111">sigaction</span><span style="color:#111">(</span><span style="color:#111">sig</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#111">action</span><span style="color:#111">,</span> <span style="color:#111">NULL</span><span style="color:#111">);</span>
+<span style="color:#111">}</span></code></pre></div>
+<p>用法像這樣：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">catch_signal</span><span style="color:#111">(</span><span style="color:#111">SIGINT</span><span style="color:#111">,</span> <span style="color:#111">diediedie</span><span style="color:#111">);</span></code></pre></div>
+<p>簡單的範例在 [signal_handle]() 裡的 [SIGINT_handle.c]()</p></li>
+</ul></li>
+
+<li><p>常出現的信號與成因</p>
+
+<ul>
+<li><code>SIGINT</code>行程被中斷</li>
+<li><code>SIGQUIT</code>有人要求形成停止，並且將記憶體傾瀉在 <a href="https://zh.wikipedia.org/wiki/%E6%A0%B8%E5%BF%83%E8%BD%AC%E5%82%A8">core dump</a> 檔案中</li>
+<li><code>SIGFPE</code>浮點數錯誤</li>
+<li><code>SIGTRAP</code>偵錯器詢問行程在哪裡</li>
+<li><code>SIGSEGV</code>行程試圖存取不合法的記憶體</li>
+<li><code>SIGWINCH</code>終端視窗改變尺寸</li>
+<li><code>SIGTERM</code>有人要求核心（kernal）殺掉行程</li>
+<li><code>SIGPIPE</code>行程寫入沒有東西讀取的管線</li>
+</ul></li>
+
+<li><p>使用<code>kill</code>傳送訊號</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ps
+<span style="color:#ae81ff">77868</span> ttys003 <span style="color:#ae81ff">0</span>:00.02 bash
+<span style="color:#ae81ff">78222</span> ttys003 <span style="color:#ae81ff">0</span>:00.01 ./testprog</code></pre></div><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#111">kill</span> <span style="color:#ae81ff">78222</span> <span style="color:#75715e">#傳送 SIGTERM 給程式</span>
+$ <span style="color:#111">kill</span> -INT <span style="color:#ae81ff">78222</span> <span style="color:#75715e">#傳送 SIGTINT 給程式</span>
+$ <span style="color:#111">kill</span> -SEGV <span style="color:#ae81ff">78222</span> <span style="color:#75715e">#傳送 SIGSEGV 給程式</span>
+$ <span style="color:#111">kill</span> -KILL <span style="color:#ae81ff">78222</span> <span style="color:#75715e">#傳送 SIGKILL 給程式，不能被忽略！！</span></code></pre></div>
+<p><code>SIGKILL</code>不能被程式碼捕捉，也不能被忽略，所以<strong>無論如何</strong><code>kill -KILL &lt;pid&gt;</code>總是會殺掉你的程式</p></li>
+
+<li><p>用<code>raise()</code>傳送信號<br />
+使用<code>raise()</code>命令可以讓行程把信號傳送給自己，像這樣：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">raise</span><span style="color:#111">(</span><span style="color:#111">SIGTERM</span><span style="color:#111">);</span></code></pre></div>
+<p>舉例來說，<strong>警示信號</strong>（alarm signal），<strong>SIGALARM</strong>，就是個常見的用法<br />
+警示信號通常由行程的<strong>定時器</strong>（interval timer）所建立，他將在未來的某個時間，觸發<code>SIGALARM</code>信號</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">catch_signal</span><span style="color:#111">(</span><span style="color:#111">SIGALARM</span><span style="color:#111">,</span> <span style="color:#111">pour_coffee</span><span style="color:#111">);</span>
+<span style="color:#111">alarm</span><span style="color:#111">(</span><span style="color:#ae81ff">120</span><span style="color:#111">);</span> <span style="color:#75715e">// 定時器每隔120秒觸發一次
+</span><span style="color:#75715e"></span><span style="color:#111">do_important_busy_work</span><span style="color:#111">();</span>
+<span style="color:#111">do_more_busy_work</span><span style="color:#111">();</span></code></pre></div>
+<p>警示信號讓你進行<strong>多工</strong>（multitask）處理，假如你每隔幾秒就必需執行特定工作，或是想要限制花在某項工作的時間量，那警示信號就是讓程式<strong>打斷他自己</strong>的好方法</p>
+
+<blockquote>
+<p>別同時使用 alarm() 跟 sleep()，因為他們使用相同的定時器，會互相干擾</p>
+</blockquote></li>
+
+<li><p>重設及忽略信號<br />
+<code>SIG_DFL</code>表示<strong>預設的處理方式</strong></p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">catch_signal</span><span style="color:#111">(</span><span style="color:#111">SIGTERM</span><span style="color:#111">,</span> <span style="color:#111">SIG_DFL</span><span style="color:#111">);</span></code></pre></div>
+<p><code>SIG_IGN</code>叫行程完全<strong>忽略</strong>信號</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">catch_signal</span><span style="color:#111">(</span><span style="color:#111">SIGINT</span><span style="color:#111">,</span> <span style="color:#111">SIG_IGN</span><span style="color:#111">);</span></code></pre></div></li>
+</ul>
+
+<p>總結這部分的範例放在 [signal_handle]() 的 [signals_example.c]()</p></li>
+</ul>
+
+<h2 id="第十一章-socket-與網路連接">第十一章、Socket 與網路連接</h2>
+
+<ul>
+<li><p><strong>協定</strong>是結構化的溝通與對話</p></li>
+
+<li><p>如果要寫程式與網路交談，需要一種新類型的資料串流，叫做 <strong>Socket</strong></p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#111">...</span>
+<span style="color:#75715e">//listener_d 是該 socket 的描述子
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">int</span> <span style="color:#111">listener_d</span> <span style="color:#f92672">=</span> <span style="color:#111">socket</span><span style="color:#111">(</span><span style="color:#111">PF_INET</span><span style="color:#111">,</span> <span style="color:#111">SOCK_STREAM</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">);</span> <span style="color:#75715e">//最後一個參數是協定數字
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">listener_d</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+    <span style="color:#111">error</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Can&#39;t open socket&#34;</span><span style="color:#111">);</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">這是之前我們寫的</span></code></pre></div></li>
+
+<li><p>在伺服器能夠使用 socket 與客戶端交談之前，必須經歷四個階段：</p>
+
+<ul>
+<li><strong>Bind</strong>（繫結埠口）</li>
+<li><strong>Listen</strong>（偵聽）</li>
+<li><strong>Accept</strong>（接受連接）</li>
+<li><strong>Begin</strong>（開始交談）
+&gt; 可以用四個單字單第一個字母 <strong>BLAB</strong> 來記憶</li>
+</ul>
+
+<ol>
+<li><p>繫結（Bind）到某個埠口</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;arpa/inet.h&gt; //需要這個標頭建立網際網路位址</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#111">...</span>
+<span style="color:#75715e">//下面四行表示「網際網路埠口30000」的埠口名稱
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">struct</span> <span style="color:#111">sockaddr_in</span> <span style="color:#111">name</span><span style="color:#111">;</span>
+<span style="color:#111">name</span><span style="color:#111">.</span><span style="color:#111">sin_family</span> <span style="color:#f92672">=</span> <span style="color:#111">PF_INET</span><span style="color:#111">;</span>
+<span style="color:#111">name</span><span style="color:#111">.</span><span style="color:#111">sin_port</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#111">in_port_t</span><span style="color:#111">)</span><span style="color:#111">htons</span><span style="color:#111">(</span><span style="color:#ae81ff">30000</span><span style="color:#111">);</span>
+<span style="color:#111">name</span><span style="color:#111">.</span><span style="color:#111">sin_addr</span><span style="color:#111">.</span><span style="color:#111">s_addr</span> <span style="color:#f92672">=</span> <span style="color:#111">htonl</span><span style="color:#111">(</span><span style="color:#111">INADDR_ANY</span><span style="color:#111">);</span>
+<span style="color:#00a8c8">int</span> <span style="color:#111">c</span> <span style="color:#f92672">=</span> <span style="color:#111">bind</span><span style="color:#111">(</span><span style="color:#111">listener_d</span><span style="color:#111">,</span> <span style="color:#111">(</span><span style="color:#00a8c8">struct</span> <span style="color:#111">sockaddr</span> <span style="color:#f92672">*</span><span style="color:#111">)</span> <span style="color:#f92672">&amp;</span><span style="color:#111">name</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">name</span><span style="color:#111">));</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">c</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+    <span style="color:#111">error</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Can&#39;t bind to socket&#34;</span><span style="color:#111">);</span></code></pre></div></li>
+
+<li><p>偵聽</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">listen</span><span style="color:#111">(</span><span style="color:#111">listener_d</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">)</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+    <span style="color:#111">error</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Can&#39;t listen&#34;</span><span style="color:#111">);</span></code></pre></div>
+<p>以 10 的長度呼叫<code>listen()</code>表示同時間最多可以有 10 個客戶端試著連接伺服器，他們不會全部立即被回覆，但是他們可以等待，而第 11 個客戶端皆被告知伺服器「過於忙碌」。
+&gt;先來的先服務，所以客戶端是在<strong>佇列</strong>（queue）裡等待</p></li>
+
+<li><p>接受連接</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//client_addr 會儲存有關連接上來之客戶端的細節資訊
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">struct</span> <span style="color:#111">sockaddr_storage</span> <span style="color:#111">client_addr</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">unsigned</span> <span style="color:#00a8c8">int</span> <span style="color:#111">address_size</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">client_addr</span><span style="color:#111">);</span>
+<span style="color:#00a8c8">int</span> <span style="color:#111">connect_d</span> <span style="color:#f92672">=</span> <span style="color:#111">accept</span><span style="color:#111">(</span><span style="color:#111">listener_d</span><span style="color:#111">,</span> <span style="color:#111">(</span><span style="color:#00a8c8">struct</span> <span style="color:#111">sockaddr</span> <span style="color:#f92672">*</span><span style="color:#111">)</span><span style="color:#f92672">&amp;</span><span style="color:#111">client_addr</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#111">address_size</span><span style="color:#111">);</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">connect_d</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+    <span style="color:#111">error</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Can&#39;t open secondary socket&#34;</span><span style="color:#111">);</span></code></pre></div>
+<p>這個新的<strong>連接描述子</strong>（connect_d）是伺服器將使用的那個</p></li>
+
+<li><p>開始對話</p></li>
+</ol></li>
+
+<li><p>socket 並非典型的資料串流<br />
+socket 是<strong>雙向</strong>的，可以使用於輸入和輸出</p></li>
+</ul>
+
+
+        
+
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jerry871002.github.io/post/my-first-post/" data-toggle="tooltip" data-placement="top" title="My First Post">&larr; 上一篇</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://jerry871002.github.io/post/02/" data-toggle="tooltip" data-placement="top" title="Wonderful">下一篇 &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:youremail@domain.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/username" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/username" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jerry
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jerry871002.github.io/">My New Hugo Site</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.58.3</a> 提供 &nbsp;&bull;&nbsp; 主題 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jerry871002.github.io/js/main.js"></script>
+<script src="https://jerry871002.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jerry871002.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
