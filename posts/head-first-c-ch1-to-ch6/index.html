@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>Head First C Ch1 to Ch6 - Jerry&#39;s Blog</title>
-  <meta name="description" content="一些 C 語言裡面值得注意的小細節">
+  <meta name="description" content="一些值得注意的小細節">
   <meta name="author" content="Jerry"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -57,9 +57,9 @@
     "name" : "Jerry"
   },
   "headline": "Head First C Ch1 to Ch6",
-  "description" : "A \x26amp;\x26amp; B 表示「假如A執行成功的話，就緊接著執行B」 例如編譯後馬上執行\n$ gcc zork.c -o zork \x26amp;\x26amp; .\/zork break 不能用來中斷 if 陳述式 誤用 break 去中斷 if 的後果可以看這裡（The 1990 AT\x26amp;T Long Distance Network Collapse）\n串接指定 x = 4 運算式本身也具有回傳值 4\ny = x = 4; 把 x 和 y 都設定成 4\n陣列變數當作指標使用 doses[3] == *(doses \x2b 3) == *(3 \x2b doses) == 3[doses]\n 所以 doses[3] 跟 3[doses] 是一樣意思的喔～\n 字串實字（String literals）永遠不能被更新 指向字串實字的變數不能用來改變該字串的內容\nchar *cards = \x26#34;JQK\x26#34;; cards[2] = cards[1]; \/\/ 這不合法！！ 如果從字串實字重新建立一個陣列，就能夠修改該陣列",
+  "description" : "因為前面的內容比較基本，就只挑一些比較有趣（或沒看過）的功能來介紹～\nA \x26amp;\x26amp; B 表示「假如A執行成功的話，就緊接著執行B」 例如編譯後馬上執行\n$ gcc zork.c -o zork \x26amp;\x26amp; .\/zork break 不能用來中斷 if 陳述式 誤用 break 去中斷 if 的後果可以看這裡（The 1990 AT\x26amp;T Long Distance Network Collapse）\n串接指定 x = 4 運算式本身也具有回傳值 4\n所以說 y = x = 4; 就是把 y 設定成 x = 4 的回傳值 4\ni.e. 把 x 跟 y 都設成 4\n陣列變數當作指標使用 doses[3] == *(doses \x2b 3) == *(3 \x2b doses) == 3[doses]\n 所以 doses[3] 跟 3[doses] 是一樣意思的喔～",
   "inLanguage" : "zh-tw",
-  "wordCount":  134 ,
+  "wordCount":  145 ,
   "datePublished" : "2019-10-06T17:25:46",
   "dateModified" : "2019-10-06T17:25:46",
   "image" : "https:\/\/jerry871002.github.io\/img\/baseball.png",
@@ -79,14 +79,14 @@
 </script>
 
 <meta property="og:title" content="Head First C Ch1 to Ch6" />
-<meta property="og:description" content="一些 C 語言裡面值得注意的小細節">
+<meta property="og:description" content="一些值得注意的小細節">
 <meta property="og:image" content="https://jerry871002.github.io/img/head-first-c.jpeg" />
 <meta property="og:url" content="https://jerry871002.github.io/posts/head-first-c-ch1-to-ch6/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Jerry&#39;s Blog" />
 
   <meta name="twitter:title" content="Head First C Ch1 to Ch6" />
-  <meta name="twitter:description" content="一些 C 語言裡面值得注意的小細節">
+  <meta name="twitter:description" content="一些值得注意的小細節">
   <meta name="twitter:image" content="https://jerry871002.github.io/img/head-first-c.jpeg" />
   <meta name="twitter:card" content="summary" />
   <link href='https://jerry871002.github.io/img/baseball.ico' rel='icon' type='image/x-icon'/>
@@ -232,7 +232,7 @@
               
               
                 
-                  <h2 class="posts-subheading">一些 C 語言裡面值得注意的小細節</h2>
+                  <h2 class="posts-subheading">一些值得注意的小細節</h2>
                 
               
               
@@ -270,7 +270,8 @@
 
       </p>
       
-        <h2>目錄</h2>
+        <br>
+<h2>目錄</h2>
 <ul >
     
 
@@ -337,10 +338,13 @@
     
     </li>
         <li>
-          <a href="#strdup-%e5%87%bd%e5%bc%8f%e8%83%bd%e5%a4%a0%e5%9c%a8-heap-%e6%9f%90%e8%99%95%e9%87%8d%e6%96%b0%e7%94%a2%e7%94%9f%e8%a9%b2%e5%ad%97%e4%b8%b2%e7%9a%84%e5%ae%8c%e6%95%b4%e5%89%af%e6%9c%ac">strdup() 函式能夠在 heap 某處重新產生該字串的完整副本</a></ul>
+          <a href="#strdup-%e5%87%bd%e5%bc%8f%e8%83%bd%e5%a4%a0%e5%9c%a8-heap-%e6%9f%90%e8%99%95%e9%87%8d%e6%96%b0%e7%94%a2%e7%94%9f%e8%a9%b2%e5%ad%97%e4%b8%b2%e7%9a%84%e5%ae%8c%e6%95%b4%e5%89%af%e6%9c%ac">strdup() 函式能夠在 heap 某處重新產生該字串的完整副本</a></ul><br>
+
       
       <article role="main" class="blog-post">
         
+
+<p>因為前面的內容比較基本，就只挑一些比較有趣（或沒看過）的功能來介紹～</p>
 
 <h2 id="a-b-表示-假如a執行成功的話-就緊接著執行b"><code>A &amp;&amp; B</code> 表示「假如A執行成功的話，就緊接著執行B」</h2>
 
@@ -358,8 +362,9 @@
 
 <hr />
 
-<p><code>x = 4</code> 運算式本身也具有回傳值 <code>4</code><br />
-<code>y = x = 4;</code> 把 <code>x</code> 和 <code>y</code> 都設定成 <code>4</code></p>
+<p><code>x = 4</code> 運算式本身也具有回傳值 <code>4</code><br>
+所以說 <code>y = x = 4;</code> 就是把 <code>y</code> 設定成 <code>x = 4</code> 的回傳值 <code>4</code><br>
+i.e. 把 <code>x</code> 跟 <code>y</code> 都設成 <code>4</code></p>
 
 <h2 id="陣列變數當作指標使用">陣列變數當作指標使用</h2>
 
@@ -441,7 +446,7 @@
 
 <hr />
 
-<p><code>(*t).age</code>、<code>t-&gt;age</code><br />
+<p><code>(*t).age</code>、<code>t-&gt;age</code>
 這兩個表達式表達同一件事</p>
 
 <h2 id="strdup-函式能夠在-heap-某處重新產生該字串的完整副本"><code>strdup()</code> 函式能夠在 <em>heap</em> 某處重新產生該字串的完整副本</h2>

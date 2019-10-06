@@ -35,14 +35,14 @@ void (*replies[])(response) = {dump, second_chance, marriage}; //陣列裡面存
       <pubDate>Sun, 06 Oct 2019 17:25:46 +0800</pubDate>
       <author>jerry871002@gmail.com (Jerry)</author>
       <guid>https://jerry871002.github.io/posts/head-first-c-ch1-to-ch6/</guid>
-      <description>A &amp;amp;&amp;amp; B 表示「假如A執行成功的話，就緊接著執行B」 例如編譯後馬上執行
+      <description>因為前面的內容比較基本，就只挑一些比較有趣（或沒看過）的功能來介紹～
+A &amp;amp;&amp;amp; B 表示「假如A執行成功的話，就緊接著執行B」 例如編譯後馬上執行
 $ gcc zork.c -o zork &amp;amp;&amp;amp; ./zork break 不能用來中斷 if 陳述式 誤用 break 去中斷 if 的後果可以看這裡（The 1990 AT&amp;amp;T Long Distance Network Collapse）
 串接指定 x = 4 運算式本身也具有回傳值 4
-y = x = 4; 把 x 和 y 都設定成 4
+所以說 y = x = 4; 就是把 y 設定成 x = 4 的回傳值 4
+i.e. 把 x 跟 y 都設成 4
 陣列變數當作指標使用 doses[3] == *(doses + 3) == *(3 + doses) == 3[doses]
- 所以 doses[3] 跟 3[doses] 是一樣意思的喔～
- 字串實字（String literals）永遠不能被更新 指向字串實字的變數不能用來改變該字串的內容
-char *cards = &amp;#34;JQK&amp;#34;; cards[2] = cards[1]; // 這不合法！！ 如果從字串實字重新建立一個陣列，就能夠修改該陣列</description>
+ 所以 doses[3] 跟 3[doses] 是一樣意思的喔～</description>
     </item>
     
     <item>
