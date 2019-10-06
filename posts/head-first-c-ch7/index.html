@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-tw" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Head First C Ch7 - Jerry&#39;s Blog</title>
+  <meta name="description" content="函式的進階用法">
+  <meta name="author" content="Jerry"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Jerry\x27s Blog",
+    
+    "url": "https:\/\/jerry871002.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jerry871002.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jerry871002.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jerry871002.github.io\/posts\/head-first-c-ch7\/",
+          "name": "Head first c ch7"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jerry"
+  },
+  "headline": "Head First C Ch7",
+  "description" : "指向函式的指標 用法是 回傳類型(*指標變數)(參數型別) 像這樣 char** (*names_fn)(char*, int)\n舉個小小的例子\nint (*wrap_fn)(int); wrap_fn = go_to_wrap_speed; \/\/儲存go_to_wrap_speed()函式的位址 wrap_fn(4); \/\/這就跟呼叫go_to_wrap_speed(4)函式一樣 排序函式（sort function）與比較器函式（comparator function） 在stdlib.h裡面有一個qsort()函式，看起來長這樣\nqsort(void array, \/\/指向陣列的指標 \tsize_t length, \/\/該陣列的長度 \tsize_t item_size, \/\/陣列裡每個元素的尺寸 \tint (*compar)(const void *, const void *)); \/\/指向比較陣列裡頭兩個項目的函式 示範的程式如下 放在資料夾 [qsort_with_comparator]() 裡面\n函式指標陣列 用法是回傳類型(*指標變數[])(參數型別)\nvoid (*replies[])(response) = {dump, second_chance, marriage}; \/\/陣列裡面存放指向函式的指標 範例程式在 [mail_merge]() 裡面\n可變參數函式（Variadic function） 直接來個範例：\n#include \x26lt;stdarg.h\x26gt; \/\/處理可變參數函式的程式碼都在這 void print_ints(int args, ...) { \/\/「...」被稱作「省略」（ellipsis），告訴你後面還有東西 \tva_list ap; \/\/va_list 用來儲存要傳進你的函式的額外引數 \tva_start(ap, args); \/\/va_start 指名可變動引數從哪裡開始 \tfor(int i = 0; i \x26lt; args; i\x2b\x2b) printf(\x26#34;argument: %d\\n\x26#34;, va_arg(ap, int)); \/\/va_arg 接受兩個值：va_list 和下一個引數的「型別」 \tva_end(ap); \/\/讀完之後記得要結束 } \/\/call the function print_ints(3, 79, 101, 32); print_ints(2, 10, 2);  小提示",
+  "inLanguage" : "zh-tw",
+  "wordCount":  107 ,
+  "datePublished" : "2019-10-06T17:41:14",
+  "dateModified" : "2019-10-06T17:41:14",
+  "image" : "https:\/\/jerry871002.github.io\/img\/baseball.png",
+  "keywords" : [ "讀書筆記, Head First C, C" ],
+  "mainEntityOfPage" : "https:\/\/jerry871002.github.io\/posts\/head-first-c-ch7\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jerry871002.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/jerry871002.github.io\/img\/baseball.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Head First C Ch7" />
+<meta property="og:description" content="函式的進階用法">
+<meta property="og:image" content="https://jerry871002.github.io/img/head-first-c.jpeg" />
+<meta property="og:url" content="https://jerry871002.github.io/posts/head-first-c-ch7/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Jerry&#39;s Blog" />
+
+  <meta name="twitter:title" content="Head First C Ch7" />
+  <meta name="twitter:description" content="函式的進階用法">
+  <meta name="twitter:image" content="https://jerry871002.github.io/img/head-first-c.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://jerry871002.github.io/img/baseball.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.58.3" />
+  <link rel="alternate" href="https://jerry871002.github.io/index.xml" type="application/rss+xml" title="Jerry&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jerry871002.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://jerry871002.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://jerry871002.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">開關導覽</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jerry871002.github.io/">Jerry&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Jerry&#39;s Blog" href="https://jerry871002.github.io/">
+            <img class="avatar-img" src="https://jerry871002.github.io/img/baseball.png" alt="Jerry&#39;s Blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Head First C Ch7</h1>
+              
+              
+                <hr class="small">
+              
+              
+                
+                  <h2 class="posts-subheading">函式的進階用法</h2>
+                
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;發表於 October 6, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分鐘
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jerry
+    
+  
+  
+</span>
+
+
+      </p>
+      
+        <h2>目錄</h2>
+<ul >
+    
+
+    
+    
+    <li>
+      <a href="#%e6%8c%87%e5%90%91%e5%87%bd%e5%bc%8f%e7%9a%84%e6%8c%87%e6%a8%99">指向函式的指標</a>
+    
+
+    
+    </li>
+        <li>
+          <a href="#%e6%8e%92%e5%ba%8f%e5%87%bd%e5%bc%8f-sort-function-%e8%88%87%e6%af%94%e8%bc%83%e5%99%a8%e5%87%bd%e5%bc%8f-comparator-function">排序函式（sort function）與比較器函式（comparator function）</a>
+    
+
+    
+    </li>
+        <li>
+          <a href="#%e5%87%bd%e5%bc%8f%e6%8c%87%e6%a8%99%e9%99%a3%e5%88%97">函式指標陣列</a>
+    
+
+    
+    </li>
+        <li>
+          <a href="#%e5%8f%af%e8%ae%8a%e5%8f%83%e6%95%b8%e5%87%bd%e5%bc%8f-variadic-function">可變參數函式（Variadic function）</a></ul>
+      
+      <article role="main" class="blog-post">
+        
+
+<h2 id="指向函式的指標">指向函式的指標</h2>
+
+<hr />
+
+<p>用法是 <code>回傳類型(*指標變數)(參數型別)</code>
+像這樣 <code>char** (*names_fn)(char*, int)</code></p>
+
+<p>舉個小小的例子</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">int</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">wrap_fn</span><span style="color:#111">)(</span><span style="color:#00a8c8">int</span><span style="color:#111">);</span>
+<span style="color:#111">wrap_fn</span> <span style="color:#f92672">=</span> <span style="color:#111">go_to_wrap_speed</span><span style="color:#111">;</span> <span style="color:#75715e">//儲存go_to_wrap_speed()函式的位址
+</span><span style="color:#75715e"></span><span style="color:#111">wrap_fn</span><span style="color:#111">(</span><span style="color:#ae81ff">4</span><span style="color:#111">);</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">這就跟呼叫</span><span style="color:#111">go_to_wrap_speed</span><span style="color:#111">(</span><span style="color:#ae81ff">4</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">函式一樣</span></code></pre></div>
+<h2 id="排序函式-sort-function-與比較器函式-comparator-function">排序函式（sort function）與比較器函式（comparator function）</h2>
+
+<hr />
+
+<p>在<code>stdlib.h</code>裡面有一個<code>qsort()</code>函式，看起來長這樣</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#111">qsort</span><span style="color:#111">(</span><span style="color:#00a8c8">void</span> <span style="color:#111">array</span><span style="color:#111">,</span> <span style="color:#75715e">//指向陣列的指標
+</span><span style="color:#75715e"></span>	  <span style="color:#111">size_t</span> <span style="color:#111">length</span><span style="color:#111">,</span> <span style="color:#75715e">//該陣列的長度
+</span><span style="color:#75715e"></span>	  <span style="color:#111">size_t</span> <span style="color:#111">item_size</span><span style="color:#111">,</span> <span style="color:#75715e">//陣列裡每個元素的尺寸
+</span><span style="color:#75715e"></span>	  <span style="color:#00a8c8">int</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">compar</span><span style="color:#111">)(</span><span style="color:#00a8c8">const</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">*</span><span style="color:#111">,</span> <span style="color:#00a8c8">const</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">*</span><span style="color:#111">));</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">指向比較陣列裡頭兩個項目的函式</span></code></pre></div>
+<p>示範的程式如下
+放在資料夾 [qsort_with_comparator]() 裡面</p>
+
+<h2 id="函式指標陣列">函式指標陣列</h2>
+
+<hr />
+
+<p>用法是<code>回傳類型(*指標變數[])(參數型別)</code></p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00a8c8">void</span> <span style="color:#111">(</span><span style="color:#f92672">*</span><span style="color:#111">replies</span><span style="color:#111">[])(</span><span style="color:#111">response</span><span style="color:#111">)</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span><span style="color:#111">dump</span><span style="color:#111">,</span> <span style="color:#111">second_chance</span><span style="color:#111">,</span> <span style="color:#111">marriage</span><span style="color:#111">};</span> <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">陣列裡面存放指向函式的指標</span></code></pre></div>
+<p>範例程式在 [mail_merge]() 裡面</p>
+
+<h2 id="可變參數函式-variadic-function">可變參數函式（Variadic function）</h2>
+
+<hr />
+
+<p>直接來個範例：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdarg.h&gt; //處理可變參數函式的程式碼都在這</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#00a8c8">void</span> <span style="color:#75af00">print_ints</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">args</span><span style="color:#111">,</span> <span style="color:#111">...)</span> <span style="color:#111">{</span> <span style="color:#75715e">//「...」被稱作「省略」（ellipsis），告訴你後面還有東西
+</span><span style="color:#75715e"></span>	<span style="color:#111">va_list</span> <span style="color:#111">ap</span><span style="color:#111">;</span> <span style="color:#75715e">//va_list 用來儲存要傳進你的函式的額外引數
+</span><span style="color:#75715e"></span>	<span style="color:#111">va_start</span><span style="color:#111">(</span><span style="color:#111">ap</span><span style="color:#111">,</span> <span style="color:#111">args</span><span style="color:#111">);</span> <span style="color:#75715e">//va_start 指名可變動引數從哪裡開始
+</span><span style="color:#75715e"></span>	<span style="color:#00a8c8">for</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#111">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#111">args</span><span style="color:#111">;</span> <span style="color:#111">i</span><span style="color:#f92672">++</span><span style="color:#111">)</span>
+		<span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;argument: %d</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#111">va_arg</span><span style="color:#111">(</span><span style="color:#111">ap</span><span style="color:#111">,</span> <span style="color:#00a8c8">int</span><span style="color:#111">));</span> <span style="color:#75715e">//va_arg 接受兩個值：va_list 和下一個引數的「型別」
+</span><span style="color:#75715e"></span>	<span style="color:#111">va_end</span><span style="color:#111">(</span><span style="color:#111">ap</span><span style="color:#111">);</span> <span style="color:#75715e">//讀完之後記得要結束
+</span><span style="color:#75715e"></span><span style="color:#111">}</span>
+
+<span style="color:#75715e">//call the function
+</span><span style="color:#75715e"></span><span style="color:#111">print_ints</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#ae81ff">79</span><span style="color:#111">,</span> <span style="color:#ae81ff">101</span><span style="color:#111">,</span> <span style="color:#ae81ff">32</span><span style="color:#111">);</span>
+<span style="color:#111">print_ints</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span></code></pre></div>
+<blockquote>
+<p>小提示</p>
+
+<ol>
+<li><code>va_end</code>、<code>va_start</code> 等東西實際上是<strong>巨集</strong>，不是函式</li>
+<li>至少要有<strong>一個</strong>固定參數</li>
+<li>如果嘗試讀取比傳進來的還要多的引數，會發生隨機錯誤（random error）</li>
+</ol>
+</blockquote>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jerry871002.github.io//tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/">讀書筆記</a>&nbsp;
+            
+              <a href="https://jerry871002.github.io//tags/head-first-c/">Head First C</a>&nbsp;
+            
+              <a href="https://jerry871002.github.io//tags/c/">C</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">其他相關</h4>
+                  <ul>
+                
+                
+                    <li><a href="/posts/head-first-c-ch1-to-ch6/">Head First C Ch1 to Ch6</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jerry871002.github.io/posts/head-first-c-ch1-to-ch6/" data-toggle="tooltip" data-placement="top" title="Head First C Ch1 to Ch6">&larr; 上一篇</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:jerry871002@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/jerry871002" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/jerry871002" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jerry
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jerry871002.github.io/">Jerry&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.58.3</a> 提供 &nbsp;&bull;&nbsp; 主題 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jerry871002.github.io/js/main.js"></script>
+<script src="https://jerry871002.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jerry871002.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

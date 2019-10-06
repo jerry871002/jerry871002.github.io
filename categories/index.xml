@@ -1,44 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on My New Hugo Site</title>
+    <title>Categories on Jerry&#39;s Blog</title>
     <link>https://jerry871002.github.io/categories/</link>
-    <description>Recent content in Categories on My New Hugo Site</description>
+    <description>Recent content in Categories on Jerry&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <managingEditor>youremail@domain.com (Jerry)</managingEditor>
-    <webMaster>youremail@domain.com (Jerry)</webMaster>
-    <lastBuildDate>Mon, 02 Jun 2014 00:00:00 +0000</lastBuildDate>
+    <managingEditor>jerry871002@gmail.com (Jerry)</managingEditor>
+    <webMaster>jerry871002@gmail.com (Jerry)</webMaster>
     
 	<atom:link href="https://jerry871002.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Development</title>
-      <link>https://jerry871002.github.io/categories/development/</link>
-      <pubDate>Mon, 02 Jun 2014 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Jerry)</author>
-      <guid>https://jerry871002.github.io/categories/development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://jerry871002.github.io/categories/golang/</link>
-      <pubDate>Mon, 02 Jun 2014 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Jerry)</author>
-      <guid>https://jerry871002.github.io/categories/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>food</title>
-      <link>https://jerry871002.github.io/categories/food/</link>
-      <pubDate>Sat, 28 Sep 2013 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Jerry)</author>
-      <guid>https://jerry871002.github.io/categories/food/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>
