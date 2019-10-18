@@ -40,5 +40,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Python</title>
+      <link>https://jerry871002.github.io/tags/python/</link>
+      <pubDate>Sun, 06 Oct 2019 09:20:53 +0800</pubDate>
+      <author>jerry871002@gmail.com (Jerry)</author>
+      <guid>https://jerry871002.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python Tricks</title>
+      <link>https://jerry871002.github.io/tags/python-tricks/</link>
+      <pubDate>Sun, 06 Oct 2019 09:20:53 +0800</pubDate>
+      <author>jerry871002@gmail.com (Jerry)</author>
+      <guid>https://jerry871002.github.io/tags/python-tricks/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

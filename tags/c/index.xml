@@ -35,7 +35,7 @@ void (*replies[])(response) = {dump, second_chance, marriage}; //陣列裡面存
       <pubDate>Sun, 06 Oct 2019 17:25:46 +0800</pubDate>
       <author>jerry871002@gmail.com (Jerry)</author>
       <guid>https://jerry871002.github.io/posts/head-first-c-ch1-to-ch6/</guid>
-      <description>因為前面的內容比較基本，就只挑一些比較有趣（或沒看過）的功能來介紹～
+      <description>因為前面的內容比較基本，就只挑一些比較有趣（或比較沒看過）的功能來介紹～
 A &amp;amp;&amp;amp; B 表示「假如A執行成功的話，就緊接著執行B」 例如編譯後馬上執行
 $ gcc zork.c -o zork &amp;amp;&amp;amp; ./zork break 不能用來中斷 if 陳述式 誤用 break 去中斷 if 的後果可以看這裡（The 1990 AT&amp;amp;T Long Distance Network Collapse）
 串接指定 x = 4 運算式本身也具有回傳值 4

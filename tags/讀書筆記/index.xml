@@ -35,7 +35,7 @@ void (*replies[])(response) = {dump, second_chance, marriage}; //陣列裡面存
       <pubDate>Sun, 06 Oct 2019 17:25:46 +0800</pubDate>
       <author>jerry871002@gmail.com (Jerry)</author>
       <guid>https://jerry871002.github.io/posts/head-first-c-ch1-to-ch6/</guid>
-      <description>因為前面的內容比較基本，就只挑一些比較有趣（或沒看過）的功能來介紹～
+      <description>因為前面的內容比較基本，就只挑一些比較有趣（或比較沒看過）的功能來介紹～
 A &amp;amp;&amp;amp; B 表示「假如A執行成功的話，就緊接著執行B」 例如編譯後馬上執行
 $ gcc zork.c -o zork &amp;amp;&amp;amp; ./zork break 不能用來中斷 if 陳述式 誤用 break 去中斷 if 的後果可以看這裡（The 1990 AT&amp;amp;T Long Distance Network Collapse）
 串接指定 x = 4 運算式本身也具有回傳值 4
@@ -43,6 +43,19 @@ $ gcc zork.c -o zork &amp;amp;&amp;amp; ./zork break 不能用來中斷 if 陳�
 i.e. 把 x 跟 y 都設成 4
 陣列變數當作指標使用 doses[3] == *(doses + 3) == *(3 + doses) == 3[doses]
  所以 doses[3] 跟 3[doses] 是一樣意思的喔～</description>
+    </item>
+    
+    <item>
+      <title>Python 神乎其技 Ch3</title>
+      <link>https://jerry871002.github.io/posts/python-trick-ch3/</link>
+      <pubDate>Sun, 06 Oct 2019 09:20:53 +0800</pubDate>
+      <author>jerry871002@gmail.com (Jerry)</author>
+      <guid>https://jerry871002.github.io/posts/python-trick-ch3/</guid>
+      <description>這篇的內容是來自Python 神乎其技：精要剖析語法精髓，大幅提升程式功力！這本書的第三章，會介紹一些Python函式的特性與好用的功能
+語彙閉包（closure） def get_speak_func(text, volumn): def whisper(): return text.lower() + &amp;#39;...&amp;#39; def yell(): return text.upper() + &amp;#39;!&amp;#39; if volumn &amp;gt; 0.5: return yell else: return whisperget_speak_func(&amp;#39;Hello, World&amp;#39;, 0.7)()&amp;#39;HELLO, WORLD!&amp;#39;  雖然 whisper 跟 yell 都沒有 text 參數，但仍然能夠使用
+能夠做到這點的函式，稱為「閉包」
+ 可以用來預先設定行為的組態 def make_adder(n): def add(x): return x + n return addplus_3 = make_adder(3) plus_5 = make_adder(5)print(plus_3(4)) print(plus_5(4))7 9  make_adder 就好像一座「工廠」
+ 函式就是物件，物件也可以是函式（可被呼叫） class Adder: def __init__(self, n): self.n = n def __call__(self, x): return self.</description>
     </item>
     
   </channel>
