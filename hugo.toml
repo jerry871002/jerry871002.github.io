@@ -64,11 +64,11 @@ style = 'algol'
 
 # Giscus comments
 [params.giscus]
-enable = false
-repo = "user/repo"
-repoid = "repoId"
+enable = true
+repo = "jerry871002/jerry871002.github.io"
+repoid = "MDEwOlJlcG9zaXRvcnkyMTMxMTM4MzA="
 category = "General"
-categoryid = "categoryId"
+categoryid = "DIC_kwDODLPb5s4Ct6jQ"
 mapping = "pathname"
 theme = "preferred_color_scheme"
 
