@@ -1,0 +1,78 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Jerry Yang'
+theme = 'typo'
+
+# Google analytics code
+googleAnalytics = "G-L2QMGWLL30"
+
+[taxonomies]
+tag = 'tags'
+
+[params]
+# Meta description
+description = "A Tech Blog"
+
+# Appearance settings
+theme = 'auto'
+colorPalette = 'default'
+hideHeader = false
+
+# Intro on main page, content is markdown
+homeIntroTitle = "Hi there 👋, I'm Jerry"
+homeIntroContent = """
+I'm a Taiwanese Software Engineer currently based in Finland, working on cloud-native backend development in the cybersecurity domain.
+
+I'm also a lifelong baseball fan, and I enjoy playing baseball in the Finnish summer.
+
+In this blog, I share my learning journey, side projects, and life experiences as a developer living abroad.
+"""
+
+# Lists parameters
+paginationSize = 10
+listSummaries = true
+listDateFormat = '2 Jan 2006'
+
+# Breadcrumbs
+[params.breadcrumbs]
+enabled = true
+showCurrentPage = true
+home = "~"
+
+# Social icons
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/jerry871002/"
+
+[[params.social]]
+name = "github"
+url = "https://github.com/jerry871002"
+
+# Main menu pages
+[[params.menu]]
+name = "home"
+url = "/"
+
+[[params.menu]]
+name = "posts"
+url = "/posts"
+
+# Syntax highlight on code blocks
+[markup]
+[markup.highlight]
+style = 'algol'
+
+# Giscus comments
+[params.giscus]
+enable = false
+repo = "user/repo"
+repoid = "repoId"
+category = "General"
+categoryid = "categoryId"
+mapping = "pathname"
+theme = "preferred_color_scheme"
+
+# See https://gohugo.io/host-and-deploy/host-on-github-pages/#step-5
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
