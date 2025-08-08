@@ -121,6 +121,7 @@ Even though I didn't pay for it myself, I still didn't want to let his investmen
 So I pushed myself to study consistently through June and July, focusing on elements that weren't covered in the CKAD exam: **cluster components**, **networking**, **scheduling**, **security**, and **troubleshooting**.
 This exam is considerably harder than CKAD, especially the troubleshooting sections, which involve complex scenarios that require a deep understanding of Kubernetes internals.
 
+After weeks of studying and practicing in the evenings and on weekends, I finally felt prepared.
 In August 2025, I passed the **CKA exam**.
 
 ## Reflections and Advice
@@ -151,7 +152,7 @@ This journey has been as much about personal growth as technical learning.
 From not knowing what a Pod was to troubleshooting etcd issues and securing cluster roles, it's been a rewarding ride.
 
 Next, I plan to work through the [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) tutorial, which has been widely praised for teaching deeper knowledge than even the CKA exam covers.
-I'll probably pursue the **Certified Kubernetes Security Specialist (CKS)** someday, not just for the credential, but because having an exam deadline gives me the motivation to dive deep into the material.
+I'll probably also pursue the **Certified Kubernetes Security Specialist (CKS)** someday, not just for the credential, but because having an exam deadline gives me the motivation to dive deep into the material.
 
 The learning never really stops, but reaching these certification milestones has given me confidence that I can tackle complex technical challenges.
 Now, when someone mentions service mesh or other Kubernetes-adjacent technologies, instead of feeling intimidated, I feel curious.
