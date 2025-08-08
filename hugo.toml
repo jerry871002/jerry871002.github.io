@@ -26,6 +26,8 @@ I'm a Taiwanese Software Engineer currently based in Finland, working on cloud-n
 I'm also a lifelong baseball fan, and I enjoy playing baseball in the Finnish summer.
 
 In this blog, I share my learning journey, side projects, and life experiences as a developer living abroad.
+
+Feel free to check out my [about page](/about) to learn more about me, or browse the [posts](/posts) to see what I've been writing.
 """
 
 # Lists parameters
@@ -56,6 +58,10 @@ url = "/"
 [[params.menu]]
 name = "posts"
 url = "/posts"
+
+[[params.menu]]
+name = "about"
+url = "/about"
 
 # Syntax highlight on code blocks
 [markup]
