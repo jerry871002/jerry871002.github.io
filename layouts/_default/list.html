@@ -1,0 +1,39 @@
+{{ define "main" }}
+
+<div class="list-container">
+
+    {{ partial "breadcrumbs.html" . }}
+
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+
+    {{ $tagsPage := eq .Title "Tags"}}
+
+    {{ if $tagsPage }}
+        {{ $tags := .Site.Taxonomies.tags }}
+        {{ $tagsArr := slice }}
+        {{ range $tag, $pages := $tags }}
+            {{ $tagPage := site.GetPage (printf "tags/%s" $tag) }}
+            {{ $tagsArr = $tagsArr | append (dict "name" $tag "count" (len $pages) "page" $tagPage) }}
+        {{ end }}
+        {{ $sortedTags := sort $tagsArr "count" "desc" }}
+        {{ range $sortedTags }}
+            {{ partial "tag-entry.html" . }}
+        {{ end }}
+    {{ else }}
+        {{ $paginationSize := 1}}
+        {{ if (gt .Site.Params.paginationSize 0) }}
+        {{ $paginationSize = .Site.Params.paginationSize }}
+        {{ end }}
+
+        {{ $paginator := .Paginate (.Pages) $paginationSize }}
+
+        {{ range $index, $page := $paginator.Pages }}
+            {{ partial "post-entry.html" $page}}
+        {{ end }}
+
+        {{ partial "pagination-controls.html" $paginator}}
+    {{ end }}
+
+</div>
+{{ end }}

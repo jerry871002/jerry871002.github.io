@@ -3,8 +3,6 @@ date: "2025-08-07"
 draft: false
 title: "My blog is back!"
 summary: "After 6 years, I have decided to revive my blog."
-tags: ["personal"]
-showTags: false
 ---
 
 Last time I wrote here was in 2019, that was back in my junior year of college.

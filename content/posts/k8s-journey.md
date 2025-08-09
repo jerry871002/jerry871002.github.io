@@ -6,6 +6,8 @@ summary: "From not knowing what a Pod was to passing both the CKAD and CKA exams
 toc: true
 readTime: true
 autonumber: true
+tags: ["kubernetes", "certification", "learning"]
+showTags: true
 ---
 
 Two years ago, I didn’t know what a Pod was.

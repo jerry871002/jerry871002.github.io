@@ -11,7 +11,7 @@ tag = 'tags'
 
 [params]
 # Meta description
-description = "A Tech Blog"
+description = "A Personal Blog by Jerry Yang."
 
 # Appearance settings
 theme = 'auto'
@@ -28,6 +28,10 @@ I'm also a lifelong baseball fan, and I enjoy playing baseball in the Finnish su
 In this blog, I share my learning journey, side projects, and life experiences as a developer living abroad.
 
 Feel free to check out my [about page](/about) to learn more about me, or browse the [posts](/posts) to see what I've been writing.
+"""
+
+footerContent="""
+© 2025 Jerry Yang | Powered by [Hugo](https://gohugo.io/) and [tomfran/typo](https://github.com/tomfran/typo)
 """
 
 # Lists parameters
@@ -52,16 +56,20 @@ url = "https://github.com/jerry871002"
 
 # Main menu pages
 [[params.menu]]
-name = "home"
-url = "/"
-
-[[params.menu]]
 name = "posts"
 url = "/posts"
 
 [[params.menu]]
 name = "about"
 url = "/about"
+
+[[params.menu]]
+name = "tags"
+url = "/tags"
+
+[[params.menu]]
+name = "resume"
+url = "/resume.pdf"
 
 # Syntax highlight on code blocks
 [markup]
