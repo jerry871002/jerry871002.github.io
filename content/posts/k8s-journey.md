@@ -14,12 +14,12 @@ Two years ago, I didn’t know what a Pod was.
 
 Today, I’m proud to say I’ve passed both the **CKAD (Certified Kubernetes Application Developer)** and the **CKA (Certified Kubernetes Administrator)** exams.
 
-This post is a personal reflection on my journey learning Kubernetes, from the initial confusion and imposter syndrome, to eventually earning two certifications that felt completely out of reach at the beginning.
+This post reflects on my journey learning Kubernetes, from the initial confusion and imposter syndrome, to eventually earning two certifications that felt completely out of reach at the beginning.
 If you're just getting started with Kubernetes or wondering how to approach learning it, I hope this can give you some perspective (and maybe save you some missteps along the way).
 
 ## Where It All Started
 
-Back in early 2023, during my first year at Aalto University, I took a course called *Designing and Building Scalable Web Applications*.
+Back in late 2022, during my first year at Aalto University, I took a course called *Designing and Building Scalable Web Applications*.
 [One of our projects](https://github.com/jerry871002/jodel-like-app) in the course was to deploy a web app that could auto-scale based on load, seemed straightforward enough, right?
 
 Not quite.
@@ -33,7 +33,7 @@ I somehow managed to complete the assignment by following tutorials, trial and e
 The project worked and it scaled, but I knew I was just going through the motions without grasping the underlying concepts.
 It felt like trying to solve a puzzle blindfolded.
 
-Around the same time, there was another course called *Seminar in Computer Science*, designed to help us practice research and academic writing in preparation for our thesis.
+Later in early 2023, there was another course called *Seminar in Computer Science*, designed to help us practice research and academic writing in preparation for our thesis.
 My advisor offered several Kubernetes-related topics for us to explore: service mesh, cluster networking, and more.
 
 I deliberately avoided them.
@@ -105,7 +105,7 @@ The hands-on labs were incredibly helpful, and the learning experience felt prac
 Since I had all this prior experience from my internship and thesis work, preparing for CKAD felt more like a comprehensive review rather than learning something completely new.
 The concepts I'd encountered in production finally clicked into place.
 
-In March 2025, I passed the **CKAD** exam.
+After a few weeks of focused study, in March 2025, I passed the **CKAD** exam.
 It felt great, but I knew the real challenge was yet to come.
 
 ## The Harder Climb
@@ -120,8 +120,8 @@ I had already paid for the exam, and it wasn’t cheap.
 He funded both exams and has been incredibly supportive throughout my certification journey.
 Even though I didn't pay for it myself, I still didn't want to let his investment go to waste.)
 
-So I pushed myself to study consistently through June and July, focusing on elements that weren't covered in the CKAD exam: **cluster components**, **networking**, **scheduling**, **security**, and **troubleshooting**.
-This exam is considerably harder than CKAD, especially the troubleshooting sections, which involve complex scenarios that require a deep understanding of Kubernetes internals.
+So I pushed myself to study consistently through June and July, focusing on elements that weren't covered in the CKAD exam: **cluster components**, **networking**, **scheduling**, **security**, **troubleshooting**, etc.
+In my opinion, this exam is considerably harder than CKAD, especially the troubleshooting sections, which involve complex scenarios that require a deep understanding of Kubernetes internals.
 
 After weeks of studying and practicing in the evenings and on weekends, I finally felt prepared.
 In August 2025, I passed the **CKA exam**.
