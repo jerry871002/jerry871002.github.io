@@ -1,12 +1,12 @@
 ---
-date: "2026-01-06"
+date: '2026-01-06'
 draft: false
-title: "2025 Personal Review"
-summary: "Looking back on growth, learning, and imperfect progress."
+title: '2025 Personal Review'
+summary: 'Looking back on growth, learning, and imperfect progress.'
 toc: true
 readTime: true
 autonumber: true
-tags: ["personal", "review", "learning"]
+tags: ['personal', 'review', 'learning']
 showTags: true
 ---
 

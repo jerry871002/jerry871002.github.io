@@ -1,12 +1,12 @@
 ---
-date: "2025-08-08"
+date: '2025-08-08'
 draft: false
-title: "From Zero to CKA/CKAD: My Kubernetes Learning Journey"
-summary: "From not knowing what a Pod was to passing both the CKAD and CKA exams, this post shares my Kubernetes learning journey and reflections."
+title: 'From Zero to CKA/CKAD: My Kubernetes Learning Journey'
+summary: 'From not knowing what a Pod was to passing both the CKAD and CKA exams, this post shares my Kubernetes learning journey and reflections.'
 toc: true
 readTime: true
 autonumber: true
-tags: ["kubernetes", "certification", "learning"]
+tags: ['kubernetes', 'certification', 'learning']
 showTags: true
 ---
 

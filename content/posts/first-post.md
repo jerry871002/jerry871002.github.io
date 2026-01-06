@@ -1,8 +1,8 @@
 ---
-date: "2025-08-07"
+date: '2025-08-07'
 draft: false
-title: "My blog is back!"
-summary: "After 6 years, I have decided to revive my blog."
+title: 'My blog is back!'
+summary: 'After 6 years, I have decided to revive my blog.'
 ---
 
 Last time I wrote here was in 2019, that was back in my junior year of college.
